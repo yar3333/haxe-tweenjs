@@ -2,9 +2,9 @@ OPTIONS+= -src out/data.json
 OPTIONS+= --remove-path-prefix native/src
 OPTIONS+= --native-package createjs
 
-OPTIONS+= -ifile easeljs/version_movieclip.js
-OPTIONS+= -ifile easeljs/version.js
 OPTIONS+= -ifile createjs/utils/IndexOf.js 
+OPTIONS+= -ifile tweenjs/version.js
+OPTIONS+= -ifile tweenjs/SamplePlugin.js 
 
 #OPTIONS+= -iitem initialize
 #OPTIONS+= -iitem Stage.hitArea
