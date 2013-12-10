@@ -1,0 +1,11 @@
+{
+  "name": "tweenjs",
+  "license": "LGPL",
+  "tags": ["html","html5","js"],
+  "description": "Haxe wrapper for TweenJS library.",
+  "contributors": ["yar3333"],
+  "releasenote": "Init version.",
+  "version": "1.0.0",
+  "url": "https://bitbucket.org/yar3333/tweenjs",
+  "dependencies": {}
+}
