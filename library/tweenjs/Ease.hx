@@ -20,76 +20,76 @@ package tweenjs;
 @:native("createjs.Ease")
 extern class Ease
 {
-	static function linear() : Void;
+	static function linear(t:Float) : Float;
 	/**
 	 * Identical to linear.
 	 */
-	static function none() : Void;
+	static function none(t:Float) : Float;
 	/**
 	 * Mimics the simple -100 to 100 easing in Flash Pro.
 	 */
-	static function get(amount:Float) : Void;
+	static function get(amount:Float) : Dynamic;
 	/**
 	 * Configurable exponential ease.
 	 */
-	static function getPowIn(pow:Float) : Void;
+	static function getPowIn(pow:Float) : Dynamic;
 	/**
 	 * Configurable exponential ease.
 	 */
-	static function getPowOut(pow:Float) : Void;
+	static function getPowOut(pow:Float) : Dynamic;
 	/**
 	 * Configurable exponential ease.
 	 */
-	static function getPowInOut(pow:Float) : Void;
-	static function quadIn(t:Float) : Void;
-	static function quadOut(t:Float) : Void;
-	static function quadInOut(t:Float) : Void;
-	static function cubicIn(t:Float) : Void;
-	static function cubicOut(t:Float) : Void;
-	static function cubicInOut(t:Float) : Void;
-	static function quartIn(t:Float) : Void;
-	static function quartOut(t:Float) : Void;
-	static function quartInOut() : Void;
-	static function quintIn(t:Float) : Void;
-	static function quintOut(t:Float) : Void;
-	static function quintInOut(t:Float) : Void;
-	static function sineIn(t:Float) : Void;
-	static function sineOut(t:Float) : Void;
-	static function sineInOut(t:Float) : Void;
+	static function getPowInOut(pow:Float) : Dynamic;
+	static function quadIn(t:Float) : Float;
+	static function quadOut(t:Float) : Float;
+	static function quadInOut(t:Float) : Float;
+	static function cubicIn(t:Float) : Float;
+	static function cubicOut(t:Float) : Float;
+	static function cubicInOut(t:Float) : Float;
+	static function quartIn(t:Float) : Float;
+	static function quartOut(t:Float) : Float;
+	static function quartInOut(t:Float) : Float;
+	static function quintIn(t:Float) : Float;
+	static function quintOut(t:Float) : Float;
+	static function quintInOut(t:Float) : Float;
+	static function sineIn(t:Float) : Float;
+	static function sineOut(t:Float) : Float;
+	static function sineInOut(t:Float) : Float;
 	/**
 	 * Configurable "back in" ease.
 	 */
-	static function getBackIn(amount:Float) : Void;
-	static function backIn() : Void;
+	static function getBackIn(amount:Float) : Dynamic;
+	static function backIn(t:Float) : Float;
 	/**
 	 * Configurable "back out" ease.
 	 */
-	static function getBackOut(amount:Float) : Void;
-	static function backOut(t:Float) : Void;
+	static function getBackOut(amount:Float) : Dynamic;
+	static function backOut(t:Float) : Float;
 	/**
 	 * Configurable "back in out" ease.
 	 */
-	static function getBackInOut(amount:Float) : Void;
-	static function backInOut(t:Float) : Void;
-	static function circIn(t:Float) : Void;
-	static function circOut(t:Float) : Void;
-	static function circInOut(t:Float) : Void;
-	static function bounceIn(t:Float) : Void;
-	static function bounceOut(t:Float) : Void;
-	static function bounceInOut(t:Float) : Void;
+	static function getBackInOut(amount:Float) : Dynamic;
+	static function backInOut(t:Float) : Float;
+	static function circIn(t:Float) : Float;
+	static function circOut(t:Float) : Float;
+	static function circInOut(t:Float) : Float;
+	static function bounceIn(t:Float) : Float;
+	static function bounceOut(t:Float) : Float;
+	static function bounceInOut(t:Float) : Float;
 	/**
 	 * Configurable elastic ease.
 	 */
-	static function getElasticIn(amplitude:Float, period:Float) : Void;
-	static function elasticIn(t:Float) : Void;
+	static function getElasticIn(amplitude:Float, period:Float) : Dynamic;
+	static function elasticIn(t:Float) : Float;
 	/**
 	 * Configurable elastic ease.
 	 */
-	static function getElasticOut(amplitude:Float, period:Float) : Void;
-	static function elasticOut(t:Float) : Void;
+	static function getElasticOut(amplitude:Float, period:Float) : Dynamic;
+	static function elasticOut(t:Float) : Float;
 	/**
 	 * Configurable elastic ease.
 	 */
-	static function getElasticInOut(amplitude:Float, period:Float) : Void;
-	static function elasticInOut(t:Float) : Void;
+	static function getElasticInOut(amplitude:Float, period:Float) : Dynamic;
+	static function elasticInOut(t:Float) : Float;
 }
