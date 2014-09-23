@@ -90,7 +90,7 @@ extern class Tween extends createjs.EventDispatcher
 	 * Returns a new tween instance. This is functionally identical to using "new Tween(...)", but looks cleaner
 	 * with the chained syntax of TweenJS.
 	 */
-	static function get(target:Dynamic, ?props:Dynamic, ?pluginData:Dynamic, ?override:Bool) : Tween;
+	static function get(target:Dynamic, ?props:Dynamic, ?pluginData:Dynamic, ?override_:Bool) : Tween;
 	/**
 	 * Advances all tweens. This typically uses the Ticker class (available in the EaselJS library), but you can call it
 	 * manually if you prefer to use your own "heartbeat" implementation.
@@ -151,7 +151,7 @@ extern class Tween extends createjs.EventDispatcher
 	 * Advances this tween by the specified amount of time in milliseconds (or ticks if <code>useTicks</code> is true).
 	 * This is normally called automatically by the Tween engine (via <code>Tween.tick</code>), but is exposed for advanced uses.
 	 */
-	inline function tick_(delta:Float) : Void return Reflect.callMethod(this, "tick", [ delta ]);
+	inline function tick_(delta:Float) : Void Reflect.callMethod(this, "tick", [ delta ]);
 	/**
 	 * Pauses or plays this tween.
 	 */
