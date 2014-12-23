@@ -181,7 +181,7 @@ this.createjs = this.createjs||{};
 	 * and managed by this timeline. Adding a tween to multiple timelines will result in unexpected behaviour.
 	 * @method addTween
 	 * @param tween The tween(s) to add. Accepts multiple arguments.
-	 * @return Tween The first tween that was passed in.
+	 * @return {Tween} The first tween that was passed in.
 	 **/
 	p.addTween = function(tween) {
 		var l = arguments.length;
@@ -203,7 +203,7 @@ this.createjs = this.createjs||{};
 	 * Removes one or more tweens from this timeline.
 	 * @method removeTween
 	 * @param tween The tween(s) to remove. Accepts multiple arguments.
-	 * @return Boolean Returns true if all of the tweens were successfully removed.
+	 * @return {Boolean} Returns true if all of the tweens were successfully removed.
 	 **/
 	p.removeTween = function(tween) {
 		var l = arguments.length;
