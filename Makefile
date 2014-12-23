@@ -18,3 +18,4 @@ OPTIONS+= -ifile tweenjs/SamplePlugin.js
 convert:
 	yuidoc -p -o out native/src
 	haxelib run yuidoc2haxe $(OPTIONS) library
+	rm -r out
