@@ -162,7 +162,7 @@ extern class Ticker
 	 *         // Click happened.
 	 *      }
 	 */
-	function addEventListener(type:String, listener:Dynamic, ?useCapture:Bool) : Dynamic;
+	static function addEventListener(type:String, listener:Dynamic, ?useCapture:Bool) : Dynamic;
 	/**
 	 * A shortcut method for using addEventListener that makes it easier to specify an execution scope, have a listener
 	 * only run once, associate arbitrary data with the listener, and remove the listener.
@@ -183,7 +183,7 @@ extern class Ticker
 	 * 			}
 	 * 		}
 	 */
-	function on(type:String, listener:Dynamic, ?scope:Dynamic, ?once:Bool, ?data:Dynamic, ?useCapture:Bool) : Dynamic;
+	static function on(type:String, listener:Dynamic, ?scope:Dynamic, ?once:Bool, ?data:Dynamic, ?useCapture:Bool) : Dynamic;
 	/**
 	 * Removes the specified event listener.
 	 * 
@@ -195,12 +195,12 @@ extern class Ticker
 	 * 
 	 *      displayObject.removeEventListener("click", handleClick);
 	 */
-	function removeEventListener(type:String, listener:Dynamic, ?useCapture:Bool) : Void;
+	static function removeEventListener(type:String, listener:Dynamic, ?useCapture:Bool) : Void;
 	/**
 	 * A shortcut to the removeEventListener method, with the same parameters and return value. This is a companion to the
 	 * .on method.
 	 */
-	function off(type:String, listener:Dynamic, ?useCapture:Bool) : Void;
+	static function off(type:String, listener:Dynamic, ?useCapture:Bool) : Void;
 	/**
 	 * Removes all listeners for the specified type, or all listeners of all types.
 	 * 
@@ -212,7 +212,7 @@ extern class Ticker
 	 *      // Remove all click listeners
 	 *      displayObject.removeAllEventListeners("click");
 	 */
-	function removeAllEventListeners(?type:String) : Void;
+	static function removeAllEventListeners(?type:String) : Void;
 	/**
 	 * Dispatches the specified event to all listeners.
 	 * 
@@ -225,11 +225,11 @@ extern class Ticker
 	 *      var event = new createjs.Event("progress");
 	 *      this.dispatchEvent(event);
 	 */
-	function dispatchEvent(eventObj:Dynamic) : Bool;
+	static function dispatchEvent(eventObj:Dynamic) : Bool;
 	/**
 	 * Indicates whether there is at least one listener for the specified event type.
 	 */
-	function hasEventListener(type:String) : Bool;
+	static function hasEventListener(type:String) : Bool;
 	/**
 	 * Indicates whether there is at least one listener for the specified event type on this object or any of its
 	 * ancestors (parent, parent's parent, etc). A return value of true indicates that if a bubbling event of the
@@ -238,7 +238,7 @@ extern class Ticker
 	 * This is similar to {{#crossLink "EventDispatcher/hasEventListener"}}{{/crossLink}}, but it searches the entire
 	 * event flow for a listener, not just this object.
 	 */
-	function willTrigger(type:String) : Bool;
+	static function willTrigger(type:String) : Bool;
 	function toString() : String;
 
 	/**
@@ -252,5 +252,5 @@ extern class Ticker
 	 *          console.log("Paused:", event.paused, event.delta);
 	 *      }
 	 */
-	inline function addTickEventListener(handler:TickerTickEvent->Void) : Dynamic return addEventListener("tick", handler);
+	static inline function addTickEventListener(handler:TickerTickEvent->Void) : Dynamic return addEventListener("tick", handler);
 }
