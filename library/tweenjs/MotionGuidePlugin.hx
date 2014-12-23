@@ -38,9 +38,4 @@ extern class MotionGuidePlugin
 	 * Installs this plugin for use with TweenJS. Call this once after TweenJS is loaded to enable this plugin.
 	 */
 	static function install() : Void;
-	/**
-	 * Determine the appropriate x/y/rotation information about a path for a given ratio along the path.
-	 * Assumes a path object with all optional parameters specified.
-	 */
-	static function calc(data:Dynamic, ratio:Float, target:Dynamic) : Dynamic;
 }

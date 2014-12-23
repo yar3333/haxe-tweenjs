@@ -33,25 +33,10 @@ package tweenjs;
 extern class Tween extends createjs.EventDispatcher
 {
 	/**
-	 * Constant defining the none actionsMode for use with setPosition.
-	 */
-	static var NONE : Float;
-	/**
-	 * Constant defining the loop actionsMode for use with setPosition.
-	 */
-	static var LOOP : Float;
-	/**
-	 * Constant defining the reverse actionsMode for use with setPosition.
-	 */
-	static var REVERSE : Float;
-	/**
-	 * Constant returned by plugins to tell the tween not to use default assignment.
-	 */
-	static var IGNORE : Dynamic;
-	/**
-	 * Causes this tween to continue playing when a global pause is active. For example, if TweenJS is using Ticker,
-	 * then setting this to true (the default) will cause this tween to be paused when <code>Ticker.setPaused(true)</code> is called.
-	 * See Tween.tick() for more info. Can be set via the props param.
+	 * Causes this tween to continue playing when a global pause is active. For example, if TweenJS is using {{#crossLink "Ticker"}}{{/crossLink}},
+	 * then setting this to true (the default) will cause this tween to be paused when <code>Ticker.setPaused(true)</code>
+	 * is called. See the Tween {{#crossLink "Tween/tick"}}{{/crossLink}} method for more info. Can be set via the props
+	 * parameter.
 	 */
 	var ignoreGlobalPause : Bool;
 	/**
@@ -83,6 +68,22 @@ extern class Tween extends createjs.EventDispatcher
 	 * Read-only. Indicates the tween's current position is within a passive wait.
 	 */
 	var passive : Bool;
+	/**
+	 * Constant defining the none actionsMode for use with setPosition.
+	 */
+	static var NONE : Float;
+	/**
+	 * Constant defining the loop actionsMode for use with setPosition.
+	 */
+	static var LOOP : Float;
+	/**
+	 * Constant defining the reverse actionsMode for use with setPosition.
+	 */
+	static var REVERSE : Float;
+	/**
+	 * Constant returned by plugins to tell the tween not to use default assignment.
+	 */
+	static var IGNORE : Dynamic;
 
 	function new(target:Dynamic, ?props:Dynamic, ?pluginData:Dynamic) : Void;
 
@@ -91,13 +92,6 @@ extern class Tween extends createjs.EventDispatcher
 	 * with the chained syntax of TweenJS.
 	 */
 	static function get(target:Dynamic, ?props:Dynamic, ?pluginData:Dynamic, ?override_:Bool) : Tween;
-	/**
-	 * Advances all tweens. This typically uses the Ticker class (available in the EaselJS library), but you can call it
-	 * manually if you prefer to use your own "heartbeat" implementation.
-	 * 
-	 * Note: Currently, EaselJS must be included <em>before</em> TweenJS to ensure Ticker exists during initialization.
-	 */
-	static function tick(delta:Float, paused:Bool) : Void;
 	/**
 	 * Removes all existing tweens for a target. This is called automatically by new tweens if the <code>override</code>
 	 * property is <code>true</code>.
@@ -112,8 +106,8 @@ extern class Tween extends createjs.EventDispatcher
 	 */
 	static function hasActiveTweens(?target:Dynamic) : Bool;
 	/**
-	 * Installs a plugin, which can modify how certain properties are handled when tweened. See the CSSPlugin for an
-	 * example of how to write TweenJS plugins.
+	 * Installs a plugin, which can modify how certain properties are handled when tweened. See the {{#crossLink "CSSPlugin"}}{{/crossLink}}
+	 * for an example of how to write TweenJS plugins.
 	 */
 	static function installPlugin(plugin:Dynamic, properties:Array<Dynamic>) : Void;
 	/**
@@ -149,9 +143,10 @@ extern class Tween extends createjs.EventDispatcher
 	function setPosition(value:Float, ?actionsMode:Float) : Bool;
 	/**
 	 * Advances this tween by the specified amount of time in milliseconds (or ticks if <code>useTicks</code> is true).
-	 * This is normally called automatically by the Tween engine (via <code>Tween.tick</code>), but is exposed for advanced uses.
+	 * This is normally called automatically by the Tween engine (via <code>Tween.tick</code>), but is exposed for
+	 * advanced uses.
 	 */
-	inline function tick_(delta:Float) : Void Reflect.callMethod(this, "tick", [ delta ]);
+	function tick(delta:Float) : Void;
 	/**
 	 * Pauses or plays this tween.
 	 */
