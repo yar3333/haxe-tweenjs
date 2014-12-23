@@ -2,9 +2,9 @@
 <project version="2">
   <!-- Output SWF options -->
   <output>
-    <movie outputType="Application" />
+    <movie outputType="CustomBuild" />
     <movie input="" />
-    <movie path="..\..\yuidoc2haxe.n" />
+    <movie path="" />
     <movie fps="0" />
     <movie width="0" />
     <movie height="0" />
@@ -21,7 +21,8 @@
   <build>
     <option directives="" />
     <option flashStrict="False" />
-    <option mainClass="Main" />
+    <option noInlineOnDebug="False" />
+    <option mainClass="" />
     <option enabledebug="False" />
     <option additional="" />
   </build>
@@ -45,7 +46,7 @@
   <options>
     <option showHiddenPaths="False" />
     <option testMovie="Custom" />
-    <option testMovieCommand="neko ../../yuidoc2haxe.n ../../out/data.json ../../library" />
+    <option testMovieCommand="" />
   </options>
   <!-- Plugin storage -->
   <storage />
