@@ -98,6 +98,10 @@ extern class Event
 	 */
 	function clone() : Event;
 	/**
+	 * Provides a chainable shortcut method for setting a number of properties on the instance.
+	 */
+	function set(props:Dynamic) : Event;
+	/**
 	 * Returns a string representation of this object.
 	 */
 	function toString() : String;

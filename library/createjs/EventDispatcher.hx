@@ -131,10 +131,19 @@ extern class EventDispatcher
 	 *      var event = new createjs.Event("progress");
 	 *      this.dispatchEvent(event);
 	 */
-	function dispatchEvent(eventObj:Dynamic, ?target:Dynamic) : Bool;
+	function dispatchEvent(eventObj:Dynamic) : Bool;
 	/**
-	 * Indicates whether there is at least one listener for the specified event type and `useCapture` value.
+	 * Indicates whether there is at least one listener for the specified event type.
 	 */
 	function hasEventListener(type:String) : Bool;
+	/**
+	 * Indicates whether there is at least one listener for the specified event type on this object or any of its
+	 * ancestors (parent, parent's parent, etc). A return value of true indicates that if a bubbling event of the
+	 * specified type is dispatched from this object, it will trigger at least one listener.
+	 * 
+	 * This is similar to {{#crossLink "EventDispatcher/hasEventListener"}}{{/crossLink}}, but it searches the entire
+	 * event flow for a listener, not just this object.
+	 */
+	function willTrigger(type:String) : Bool;
 	function toString() : String;
 }
