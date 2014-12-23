@@ -2,7 +2,9 @@ OPTIONS+= -src out/data.json
 OPTIONS+= --remove-path-prefix native/src
 OPTIONS+= --native-package createjs
 
-OPTIONS+= -ifile createjs/utils/IndexOf.js 
+OPTIONS+= -ifile createjs/utils/extend.js 
+OPTIONS+= -ifile createjs/utils/indexOf.js 
+OPTIONS+= -ifile createjs/utils/promote.js 
 OPTIONS+= -ifile tweenjs/version.js
 OPTIONS+= -ifile tweenjs/SamplePlugin.js 
 
