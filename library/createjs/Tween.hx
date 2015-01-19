@@ -29,7 +29,7 @@ package createjs;
  * 
  * See the Tween {{#crossLink "Tween/get"}}{{/crossLink}} method for additional param documentation.
  */
-extern class Tween extends createjs.EventDispatcher
+extern class Tween extends EventDispatcher
 {
 	/**
 	 * Causes this tween to continue playing when a global pause is active. For example, if TweenJS is using {{#crossLink "Ticker"}}{{/crossLink}},
@@ -158,5 +158,6 @@ extern class Tween extends createjs.EventDispatcher
 	/**
 	 * Called whenever the tween's position changes.
 	 */
-	inline function addChangeEventListener(handler:Dynamic->Void) : Dynamic return addEventListener("change", handler);
+	inline function addChangeEventListener(handler:Dynamic->Void, ?useCapture:Bool) : Dynamic return addEventListener("change", handler, useCapture);
+	inline function removeChangeEventListener(handler:Dynamic->Void, ?useCapture:Bool) : Void removeEventListener("change", handler, useCapture);
 }
