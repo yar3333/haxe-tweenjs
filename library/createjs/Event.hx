@@ -7,7 +7,6 @@ package createjs;
  * Note that Event objects are often reused, so you should never
  * rely on an event object's state outside of the call stack it was received in.
  */
-@:native("createjs.Event")
 extern class Event
 {
 	/**

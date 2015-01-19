@@ -1,6 +1,7 @@
 OPTIONS+= -src out/data.json
 OPTIONS+= --remove-path-prefix native/src
 OPTIONS+= --native-package createjs
+OPTIONS+= --apply-native-package
 
 OPTIONS+= -ifile createjs/utils/extend.js 
 OPTIONS+= -ifile createjs/utils/indexOf.js 

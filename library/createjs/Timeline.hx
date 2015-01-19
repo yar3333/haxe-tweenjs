@@ -4,7 +4,7 @@ package createjs;
  * The Timeline class synchronizes multiple tweens and allows them to be controlled as a group. Please note that if a
  * timeline is looping, the tweens on it may appear to loop even if the "loop" property of the tween is false.
  */
-extern class Timeline extends createjs.EventDispatcher
+extern class Timeline extends EventDispatcher
 {
 	/**
 	 * Causes this timeline to continue playing when a global pause is active.
@@ -97,5 +97,6 @@ extern class Timeline extends createjs.EventDispatcher
 	/**
 	 * Called whenever the timeline's position changes.
 	 */
-	inline function addChangeEventListener(handler:Dynamic->Void) : Dynamic return addEventListener("change", handler);
+	inline function addChangeEventListener(handler:Dynamic->Void, ?useCapture:Bool) : Dynamic return addEventListener("change", handler, useCapture);
+	inline function removeChangeEventListener(handler:Dynamic->Void, ?useCapture:Bool) : Void removeEventListener("change", handler, useCapture);
 }

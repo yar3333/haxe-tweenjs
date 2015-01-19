@@ -45,7 +45,6 @@ package createjs;
  * 
  * If you want to use addEventListener instead, you may want to use function.bind() or a similar proxy to manage scope.
  */
-@:native("createjs.EventDispatcher")
 extern class EventDispatcher
 {
 	function new() : Void;
