@@ -1,10 +1,9 @@
-package tweenjs;
+package createjs;
 
 /**
  * The Timeline class synchronizes multiple tweens and allows them to be controlled as a group. Please note that if a
  * timeline is looping, the tweens on it may appear to loop even if the "loop" property of the tween is false.
  */
-@:native("createjs.Timeline")
 extern class Timeline extends createjs.EventDispatcher
 {
 	/**

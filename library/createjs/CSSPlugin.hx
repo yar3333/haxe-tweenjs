@@ -1,4 +1,4 @@
-package tweenjs;
+package createjs;
 
 /**
  * A TweenJS plugin for working with numeric CSS string properties (ex. top, left). To use simply install after
@@ -11,7 +11,6 @@ package tweenjs;
  * 
  * Please note that the CSS Plugin is not included in the TweenJS minified file.
  */
-@:native("createjs.CSSPlugin")
 extern class CSSPlugin
 {
 	/**

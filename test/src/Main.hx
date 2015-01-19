@@ -1,5 +1,4 @@
 import createjs.*;
-import tweenjs.*;
 
 class Main
 {

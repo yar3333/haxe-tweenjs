@@ -1,4 +1,4 @@
-package tweenjs;
+package createjs;
 
 /**
  * The Ease class provides a collection of easing functions for use with TweenJS. It does not use the standard 4 param
@@ -17,7 +17,6 @@ package tweenjs;
  * 
  * <i>Equations derived from work by Robert Penner.</i>
  */
-@:native("createjs.Ease")
 extern class Ease
 {
 	static function linear(t:Float) : Float;

@@ -1,4 +1,4 @@
-package tweenjs;
+package createjs;
 
 /**
  * A Tween instance tweens properties for a single target. Instance methods can be chained for easy construction and sequencing:
@@ -29,7 +29,6 @@ package tweenjs;
  * 
  * See the Tween {{#crossLink "Tween/get"}}{{/crossLink}} method for additional param documentation.
  */
-@:native("createjs.Tween")
 extern class Tween extends createjs.EventDispatcher
 {
 	/**
