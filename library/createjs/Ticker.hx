@@ -252,5 +252,5 @@ extern class Ticker
 	 *      }
 	 */
 	static inline function addTickEventListener(handler:TickerTickEvent->Void, ?useCapture:Bool) : Dynamic return addEventListener("tick", handler, useCapture);
-	inline function removeTickEventListener(handler:TickerTickEvent->Void, ?useCapture:Bool) : Void removeEventListener("tick", handler, useCapture);
+	static inline function removeTickEventListener(handler:TickerTickEvent->Void, ?useCapture:Bool) : Void removeEventListener("tick", handler, useCapture);
 }
