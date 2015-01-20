@@ -12,4 +12,4 @@ EVENT_DISPATCHER_METHODS = EVENT_DISPATCHER_METHODS|willTrigger
 
 ANY = (?:(?:[\n]|[^\n])+?)
 
-/(extern\s+class\s+(?:CLASSES_WITH_STATIC_EVENT_DISPATCHER_METHODS)(?:ANY)\n\s*)((?:inline\s+)?function\s+(?:EVENT_DISPATCHER_METHODS|add[A-Z][A-Za-z0-9_]+EventListener))/$1static $2/mr
+/(extern\s+class\s+(?:CLASSES_WITH_STATIC_EVENT_DISPATCHER_METHODS)(?:ANY)\n\s*)((?:inline\s+)?function\s+(?:EVENT_DISPATCHER_METHODS|(?:add|remove)[A-Z][A-Za-z0-9_]+EventListener))/$1static $2/mr
