@@ -81,7 +81,12 @@ this.createjs = this.createjs||{};
 	 *          console.log(instance == this); // true, "on" uses dispatcher scope by default.
 	 *      });
 	 * 
-	 * If you want to use addEventListener instead, you may want to use function.bind() or a similar proxy to manage scope.
+	 * If you want to use addEventListener instead, you may want to use function.bind() or a similar proxy to manage
+	 * scope.
+	 *
+	 * <b>Browser support</b>
+	 * The event model in CreateJS can be used separately from the suite in any project, however the inheritance model
+	 * requires modern browsers (IE9+).
 	 *      
 	 *
 	 * @class EventDispatcher
@@ -106,20 +111,6 @@ this.createjs = this.createjs||{};
 		this._captureListeners = null;
 	}
 	var p = EventDispatcher.prototype;
-
-	/**
-	 * <strong>REMOVED</strong>. Removed in favor of using `MySuperClass_constructor`.
-	 * See {{#crossLink "Utility Methods/extend"}}{{/crossLink}} and {{#crossLink "Utility Methods/promote"}}{{/crossLink}}
-	 * for details.
-	 *
-	 * There is an inheritance tutorial distributed with EaselJS in /tutorials/Inheritance.
-	 *
-	 * @method initialize
-	 * @protected
-	 * @deprecated
-	 */
-	// p.initialize = function() {}; // searchable for devs wondering where it is.
-
 
 // static public methods:
 	/**
@@ -184,7 +175,11 @@ this.createjs = this.createjs||{};
 	 * only run once, associate arbitrary data with the listener, and remove the listener.
 	 * 
 	 * This method works by creating an anonymous wrapper function and subscribing it with addEventListener.
-	 * The created anonymous function is returned for use with .removeEventListener (or .off).
+	 * The wrapper function is returned for use with `removeEventListener` (or `off`).
+	 * 
+	 * <b>IMPORTANT:</b> To remove a listener added with `on`, you must pass in the returned wrapper function as the listener, or use
+	 * {{#crossLink "Event/remove"}}{{/crossLink}}. Likewise, each time you call `on` a NEW wrapper function is subscribed, so multiple calls
+	 * to `on` with the same params will create multiple listeners.
 	 * 
 	 * <h4>Example</h4>
 	 * 
@@ -254,6 +249,9 @@ this.createjs = this.createjs||{};
 	/**
 	 * A shortcut to the removeEventListener method, with the same parameters and return value. This is a companion to the
 	 * .on method.
+	 * 
+	 * <b>IMPORTANT:</b> To remove a listener added with `on`, you must pass in the returned wrapper function as the listener. See 
+	 * {{#crossLink "EventDispatcher/on"}}{{/crossLink}} for an example.
 	 *
 	 * @method off
 	 * @param {String} type The string type of the event.
@@ -299,19 +297,24 @@ this.createjs = this.createjs||{};
 	 * @method dispatchEvent
 	 * @param {Object | String | Event} eventObj An object with a "type" property, or a string type.
 	 * While a generic object will work, it is recommended to use a CreateJS Event instance. If a string is used,
-	 * dispatchEvent will construct an Event instance with the specified type.
-	 * @return {Boolean} Returns the value of eventObj.defaultPrevented.
+	 * dispatchEvent will construct an Event instance if necessary with the specified type. This latter approach can
+	 * be used to avoid event object instantiation for non-bubbling events that may not have any listeners.
+	 * @param {Boolean} [bubbles] Specifies the `bubbles` value when a string was passed to eventObj.
+	 * @param {Boolean} [cancelable] Specifies the `cancelable` value when a string was passed to eventObj.
+	 * @return {Boolean} Returns false if `preventDefault()` was called on a cancelable event, true otherwise.
 	 **/
-	p.dispatchEvent = function(eventObj) {
+	p.dispatchEvent = function(eventObj, bubbles, cancelable) {
 		if (typeof eventObj == "string") {
-			// won't bubble, so skip everything if there's no listeners:
+			// skip everything if there's no listeners and it doesn't bubble:
 			var listeners = this._listeners;
-			if (!listeners || !listeners[eventObj]) { return false; }
-			eventObj = new createjs.Event(eventObj);
+			if (!bubbles && (!listeners || !listeners[eventObj])) { return true; }
+			eventObj = new createjs.Event(eventObj, bubbles, cancelable);
 		} else if (eventObj.target && eventObj.clone) {
 			// redispatching an active event object, so clone it:
 			eventObj = eventObj.clone();
 		}
+		
+		// TODO: it would be nice to eliminate this. Maybe in favour of evtObj instanceof Event? Or !!evtObj.createEvent
 		try { eventObj.target = this; } catch (e) {} // try/catch allows redispatching of native events
 
 		if (!eventObj.bubbles || !this.parent) {
@@ -330,7 +333,7 @@ this.createjs = this.createjs||{};
 				list[i]._dispatchEvent(eventObj, 3);
 			}
 		}
-		return eventObj.defaultPrevented;
+		return !eventObj.defaultPrevented;
 	};
 
 	/**
@@ -376,17 +379,15 @@ this.createjs = this.createjs||{};
 // private methods:
 	/**
 	 * @method _dispatchEvent
-	 * @param {Object | String | Event} eventObj
+	 * @param {Object | Event} eventObj
 	 * @param {Object} eventPhase
 	 * @protected
 	 **/
 	p._dispatchEvent = function(eventObj, eventPhase) {
-		var l, listeners = (eventPhase==1) ? this._captureListeners : this._listeners;
-		if (eventObj && listeners) {
-			var arr = listeners[eventObj.type];
-			if (!arr||!(l=arr.length)) { return; }
+		var l, arr, listeners = (eventPhase <= 2) ? this._captureListeners : this._listeners;
+		if (eventObj && listeners && (arr = listeners[eventObj.type]) && (l=arr.length)) {
 			try { eventObj.currentTarget = this; } catch (e) {}
-			try { eventObj.eventPhase = eventPhase; } catch (e) {}
+			try { eventObj.eventPhase = eventPhase|0; } catch (e) {}
 			eventObj.removed = false;
 			
 			arr = arr.slice(); // to avoid issues with items being removed or added during the dispatch
@@ -400,6 +401,7 @@ this.createjs = this.createjs||{};
 				}
 			}
 		}
+		if (eventPhase === 2) { this._dispatchEvent(eventObj, 2.1); }
 	};
 
 
