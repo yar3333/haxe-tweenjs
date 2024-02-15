@@ -35,22 +35,25 @@ extern class Ticker
 	 * uses a simple heuristic that compares the time of the RAF return to the target time for the current frame and
 	 * dispatches the tick when the time is within a certain threshold.
 	 * 
-	 * This mode has a higher variance for time between frames than TIMEOUT, but does not require that content be time
-	 * based as with RAF while gaining the benefits of that API (screen synch, background throttling).
+	 * This mode has a higher variance for time between frames than {{#crossLink "Ticker/TIMEOUT:property"}}{{/crossLink}},
+	 * but does not require that content be time based as with {{#crossLink "Ticker/RAF:property"}}{{/crossLink}} while
+	 * gaining the benefits of that API (screen synch, background throttling).
 	 * 
 	 * Variance is usually lowest for framerates that are a divisor of the RAF frequency. This is usually 60, so
 	 * framerates of 10, 12, 15, 20, and 30 work well.
 	 * 
-	 * Falls back on TIMEOUT if the requestAnimationFrame API is not supported.
+	 * Falls back to {{#crossLink "Ticker/TIMEOUT:property"}}{{/crossLink}} if the requestAnimationFrame API is not
+	 * supported.
 	 */
 	static var RAF_SYNCHED : String;
 	/**
 	 * In this mode, Ticker passes through the requestAnimationFrame heartbeat, ignoring the target framerate completely.
 	 * Because requestAnimationFrame frequency is not deterministic, any content using this mode should be time based.
-	 * You can leverage {{#crossLink "Ticker/getTime"}}{{/crossLink}} and the tick event object's "delta" properties
-	 * to make this easier.
+	 * You can leverage {{#crossLink "Ticker/getTime"}}{{/crossLink}} and the {{#crossLink "Ticker/tick:event"}}{{/crossLink}}
+	 * event object's "delta" properties to make this easier.
 	 * 
-	 * Falls back on TIMEOUT if the requestAnimationFrame API is not supported.
+	 * Falls back on {{#crossLink "Ticker/TIMEOUT:property"}}{{/crossLink}} if the requestAnimationFrame API is not
+	 * supported.
 	 */
 	static var RAF : String;
 	/**
@@ -60,8 +63,8 @@ extern class Ticker
 	static var TIMEOUT : String;
 	/**
 	 * Specifies the timing api (setTimeout or requestAnimationFrame) and mode to use. See
-	 * {{#crossLink "Ticker/TIMEOUT"}}{{/crossLink}}, {{#crossLink "Ticker/RAF"}}{{/crossLink}}, and
-	 * {{#crossLink "Ticker/RAF_SYNCHED"}}{{/crossLink}} for mode details.
+	 * {{#crossLink "Ticker/TIMEOUT:property"}}{{/crossLink}}, {{#crossLink "Ticker/RAF:property"}}{{/crossLink}}, and
+	 * {{#crossLink "Ticker/RAF_SYNCHED:property"}}{{/crossLink}} for mode details.
 	 */
 	static var timingMode : String;
 	/**
@@ -77,9 +80,10 @@ extern class Ticker
 	 */
 	static var maxDelta : Float;
 	/**
-	 * When the ticker is paused, all listeners will still receive a tick event, but the <code>paused</code> property of the event will be false.
-	 * Also, while paused the `runTime` will not increase. See {{#crossLink "Ticker/tick:event"}}{{/crossLink}},
-	 * {{#crossLink "Ticker/getTime"}}{{/crossLink}}, and {{#crossLink "Ticker/getEventTime"}}{{/crossLink}} for more info.
+	 * When the ticker is paused, all listeners will still receive a tick event, but the <code>paused</code> property
+	 * of the event will be `true`. Also, while paused the `runTime` will not increase. See {{#crossLink "Ticker/tick:event"}}{{/crossLink}},
+	 * {{#crossLink "Ticker/getTime"}}{{/crossLink}}, and {{#crossLink "Ticker/getEventTime"}}{{/crossLink}} for more
+	 * info.
 	 * 
 	 * <h4>Example</h4>
 	 * 
@@ -120,9 +124,10 @@ extern class Ticker
 	 * the end of one tick and the end of the next. However, getMeasuredTickTime() returns 15ms. This indicates that 
 	 * there may be up to 35ms of "idle" time between the end of one tick and the start of the next.
 	 * 
-	 * Example 2: With a target FPS of 30, getFPS() returns 10fps, which indicates an average of 100ms between the end of
-	 * one tick and the end of the next. However, getMeasuredTickTime() returns 20ms. This would indicate that something
-	 * other than the tick is using ~80ms (another script, DOM rendering, etc).
+	 * Example 2: With a target FPS of 30, {{#crossLink "Ticker/framerate:property"}}{{/crossLink}} returns 10fps, which
+	 * indicates an average of 100ms between the end of one tick and the end of the next. However, {{#crossLink "Ticker/getMeasuredTickTime"}}{{/crossLink}}
+	 * returns 20ms. This would indicate that something other than the tick is using ~80ms (another script, DOM
+	 * rendering, etc).
 	 */
 	static function getMeasuredTickTime(?ticks:Float) : Float;
 	/**
@@ -136,7 +141,8 @@ extern class Ticker
 	 */
 	static function getTime(?runTime:Bool) : Float;
 	/**
-	 * Similar to getTime(), but returns the time on the most recent tick event object.
+	 * Similar to the {{#crossLink "Ticker/getTime"}}{{/crossLink}} method, but returns the time on the most recent {{#crossLink "Ticker/tick:event"}}{{/crossLink}}
+	 * event object.
 	 */
 	static function getEventTime(runTime:Bool) : Float;
 	/**
@@ -167,7 +173,11 @@ extern class Ticker
 	 * only run once, associate arbitrary data with the listener, and remove the listener.
 	 * 
 	 * This method works by creating an anonymous wrapper function and subscribing it with addEventListener.
-	 * The created anonymous function is returned for use with .removeEventListener (or .off).
+	 * The wrapper function is returned for use with `removeEventListener` (or `off`).
+	 * 
+	 * <b>IMPORTANT:</b> To remove a listener added with `on`, you must pass in the returned wrapper function as the listener, or use
+	 * {{#crossLink "Event/remove"}}{{/crossLink}}. Likewise, each time you call `on` a NEW wrapper function is subscribed, so multiple calls
+	 * to `on` with the same params will create multiple listeners.
 	 * 
 	 * <h4>Example</h4>
 	 * 
@@ -224,11 +234,11 @@ extern class Ticker
 	 *      var event = new createjs.Event("progress");
 	 *      this.dispatchEvent(event);
 	 */
-	static function dispatchEvent(eventObj:Dynamic) : Bool;
+    static function dispatchEvent(eventObj:Dynamic, ?bubbles:Bool, ?cancelable:Bool) : Bool;
 	/**
 	 * Indicates whether there is at least one listener for the specified event type.
 	 */
-	static function hasEventListener(type:String) : Bool;
+    static function hasEventListener(type:String) : Bool;
 	/**
 	 * Indicates whether there is at least one listener for the specified event type on this object or any of its
 	 * ancestors (parent, parent's parent, etc). A return value of true indicates that if a bubbling event of the
@@ -237,12 +247,13 @@ extern class Ticker
 	 * This is similar to {{#crossLink "EventDispatcher/hasEventListener"}}{{/crossLink}}, but it searches the entire
 	 * event flow for a listener, not just this object.
 	 */
-	static function willTrigger(type:String) : Bool;
-	function toString() : String;
+    static function willTrigger(type:String) : Bool;
+
+	static function toString() : String;
 
 	/**
 	 * Dispatched each tick. The event will be dispatched to each listener even when the Ticker has been paused using
-	 * {{#crossLink "Ticker/setPaused"}}{{/crossLink}}.
+	 * {{#crossLink "Ticker/paused:property"}}{{/crossLink}}.
 	 * 
 	 * <h4>Example</h4>
 	 * 

@@ -12,10 +12,10 @@ package createjs;
  * 
  *      Tween.get(target).to({y:200}, 500, Ease.getPowIn(2.2));
  * 
- * Please see the <a href="http://www.createjs.com/#!/TweenJS/demos/sparkTable">spark table demo</a> for an overview
- * of the different ease types on <a href="http://tweenjs.com">TweenJS.com</a>.
+ * Please see the <a href="http://www.createjs.com/Demos/TweenJS/Tween_SparkTable">spark table demo</a> for an
+ * overview of the different ease types on <a href="http://tweenjs.com">TweenJS.com</a>.
  * 
- * <i>Equations derived from work by Robert Penner.</i>
+ * <em>Equations derived from work by Robert Penner.</em>
  */
 extern class Ease
 {
@@ -25,7 +25,7 @@ extern class Ease
 	 */
 	static function none(t:Float) : Float;
 	/**
-	 * Mimics the simple -100 to 100 easing in Flash Pro.
+	 * Mimics the simple -100 to 100 easing in Adobe Flash/Animate.
 	 */
 	static function get(amount:Float) : Dynamic;
 	/**

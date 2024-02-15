@@ -1,99 +1,72 @@
 package createjs;
 
 /**
- * A Tween instance tweens properties for a single target. Instance methods can be chained for easy construction and sequencing:
+ * Tweens properties for a single target. Methods can be chained to create complex animation sequences:
  * 
  * <h4>Example</h4>
  * 
- *      target.alpha = 1;
- * 	    Tween.get(target)
- * 	         .wait(500)
- * 	         .to({alpha:0, visible:false}, 1000)
- * 	         .call(handleComplete);
- * 	    function handleComplete() {
- * 	    	//Tween complete
- * 	    }
+ * 	createjs.Tween.get(target)
+ * 		.wait(500)
+ * 		.to({alpha:0, visible:false}, 1000)
+ * 		.call(handleComplete);
  * 
- * Multiple tweens can point to the same instance, however if they affect the same properties there could be unexpected
- * behaviour. To stop all tweens on an object, use {{#crossLink "Tween/removeTweens"}}{{/crossLink}} or pass <code>override:true</code>
+ * Multiple tweens can share a target, however if they affect the same properties there could be unexpected
+ * behaviour. To stop all tweens on an object, use {{#crossLink "Tween/removeTweens"}}{{/crossLink}} or pass `override:true`
  * in the props argument.
  * 
- *      Tween.get(target, {override:true}).to({x:100});
+ * 	createjs.Tween.get(target, {override:true}).to({x:100});
  * 
- * Subscribe to the "change" event to get notified when a property of the target is changed.
+ * Subscribe to the {{#crossLink "Tween/change:event"}}{{/crossLink}} event to be notified when the tween position changes.
  * 
- *      Tween.get(target, {override:true}).to({x:100}).addEventListener("change", handleChange);
- *      function handleChange(event) {
- *          // The tween changed.
- *      }
+ * 	createjs.Tween.get(target, {override:true}).to({x:100}).addEventListener("change", handleChange);
+ * 	function handleChange(event) {
+ * 		// The tween changed.
+ * 	}
  * 
- * See the Tween {{#crossLink "Tween/get"}}{{/crossLink}} method for additional param documentation.
+ * See the {{#crossLink "Tween/get"}}{{/crossLink}} method also.
  */
-extern class Tween extends EventDispatcher
+extern class Tween extends AbstractTween
 {
 	/**
-	 * Causes this tween to continue playing when a global pause is active. For example, if TweenJS is using {{#crossLink "Ticker"}}{{/crossLink}},
-	 * then setting this to true (the default) will cause this tween to be paused when <code>Ticker.setPaused(true)</code>
-	 * is called. See the Tween {{#crossLink "Tween/tick"}}{{/crossLink}} method for more info. Can be set via the props
-	 * parameter.
-	 */
-	var ignoreGlobalPause : Bool;
-	/**
-	 * If true, the tween will loop when it reaches the end. Can be set via the props param.
-	 */
-	var loop : Bool;
-	/**
-	 * Read-only. Specifies the total duration of this tween in milliseconds (or ticks if useTicks is true).
-	 * This value is automatically updated as you modify the tween. Changing it directly could result in unexpected
-	 * behaviour.
-	 */
-	var duration : Float;
-	/**
 	 * Allows you to specify data that will be used by installed plugins. Each plugin uses this differently, but in general
-	 * you specify data by setting it to a property of pluginData with the same name as the plugin class.
+	 * you specify data by assigning it to a property of `pluginData` with the same name as the plugin.
+	 * Note that in many cases, this data is used as soon as the plugin initializes itself for the tween.
+	 * As such, this data should be set before the first `to` call in most cases.
 	 */
 	var pluginData : Dynamic;
 	/**
-	 * Read-only. The target of this tween. This is the object on which the tweened properties will be changed. Changing
-	 * this property after the tween is created will not have any effect.
+	 * The target of this tween. This is the object on which the tweened properties will be changed.
 	 */
 	var target : Dynamic;
 	/**
-	 * Read-only. The current normalized position of the tween. This will always be a value between 0 and duration.
-	 * Changing this property directly will have no effect.
-	 */
-	var position : Dynamic;
-	/**
-	 * Read-only. Indicates the tween's current position is within a passive wait.
+	 * Indicates the tween's current position is within a passive wait.
 	 */
 	var passive : Bool;
-	/**
-	 * Constant defining the none actionsMode for use with setPosition.
-	 */
-	static var NONE : Float;
-	/**
-	 * Constant defining the loop actionsMode for use with setPosition.
-	 */
-	static var LOOP : Float;
-	/**
-	 * Constant defining the reverse actionsMode for use with setPosition.
-	 */
-	static var REVERSE : Float;
 	/**
 	 * Constant returned by plugins to tell the tween not to use default assignment.
 	 */
 	static var IGNORE : Dynamic;
 
-	function new(target:Dynamic, ?props:Dynamic, ?pluginData:Dynamic) : Void;
+	function new(target:Dynamic, ?props:Dynamic) : Void;
 
 	/**
-	 * Returns a new tween instance. This is functionally identical to using "new Tween(...)", but looks cleaner
+	 * Returns a new tween instance. This is functionally identical to using `new Tween(...)`, but may look cleaner
 	 * with the chained syntax of TweenJS.
+	 * <h4>Example</h4>
+	 * 
+	 * 	var tween = createjs.Tween.get(target).to({x:100}, 500);
+	 * 	// equivalent to:
+	 * 	var tween = new createjs.Tween(target).to({x:100}, 500);
 	 */
-	static function get(target:Dynamic, ?props:Dynamic, ?pluginData:Dynamic, ?override_:Bool) : Tween;
+	static function get(target:Dynamic, ?props:Dynamic) : Tween;
 	/**
-	 * Removes all existing tweens for a target. This is called automatically by new tweens if the <code>override</code>
-	 * property is <code>true</code>.
+	 * Advances all tweens. This typically uses the {{#crossLink "Ticker"}}{{/crossLink}} class, but you can call it
+	 * manually if you prefer to use your own "heartbeat" implementation.
+	 */
+	static function tick(delta:Float, paused:Bool) : Void;
+	/**
+	 * Removes all existing tweens for a target. This is called automatically by new tweens if the `override`
+	 * property is `true`.
 	 */
 	static function removeTweens(target:Dynamic) : Void;
 	/**
@@ -101,55 +74,76 @@ extern class Tween extends EventDispatcher
 	 */
 	static function removeAllTweens() : Void;
 	/**
-	 * Indicates whether there are any active tweens (and how many) on the target object (if specified) or in general.
+	 * Indicates whether there are any active tweens on the target object (if specified) or in general.
 	 */
 	static function hasActiveTweens(?target:Dynamic) : Bool;
 	/**
-	 * Installs a plugin, which can modify how certain properties are handled when tweened. See the {{#crossLink "CSSPlugin"}}{{/crossLink}}
-	 * for an example of how to write TweenJS plugins.
+	 * Adds a wait (essentially an empty tween).
+	 * <h4>Example</h4>
+	 * 
+	 * 	//This tween will wait 1s before alpha is faded to 0.
+	 * 	createjs.Tween.get(target).wait(1000).to({alpha:0}, 1000);
 	 */
-	static function installPlugin(plugin:Dynamic, properties:Array<Dynamic>) : Void;
+	function wait(duration:Float, ?passive:Bool) : Tween;
 	/**
-	 * Queues a wait (essentially an empty tween).
-	 */
-	function wait(duration:Float, passive:Bool) : Tween;
-	/**
-	 * Queues a tween from the current values to the target properties. Set duration to 0 to jump to these value.
+	 * Adds a tween from the current values to the specified properties. Set duration to 0 to jump to these value.
 	 * Numeric properties will be tweened from their current value in the tween to the target value. Non-numeric
 	 * properties will be set at the end of the specified duration.
+	 * <h4>Example</h4>
+	 * 
+	 * 	createjs.Tween.get(target).to({alpha:0, visible:false}, 1000);
 	 */
 	function to(props:Dynamic, ?duration:Float, ?ease:Dynamic) : Tween;
 	/**
-	 * Queues an action to call the specified function.
+	 * Adds a label that can be used with {{#crossLink "Tween/gotoAndPlay"}}{{/crossLink}}/{{#crossLink "Tween/gotoAndStop"}}{{/crossLink}}
+	 * at the current point in the tween. For example:
+	 * 
+	 * 	var tween = createjs.Tween.get(foo)
+	 * 					.to({x:100}, 1000)
+	 * 					.label("myLabel")
+	 * 					.to({x:200}, 1000);
+	 * // ...
+	 * tween.gotoAndPlay("myLabel"); // would play from 1000ms in.
+	 */
+	override function addLabel(label:String) : Tween;
+	/**
+	 * Adds an action to call the specified function.
+	 * <h4>Example</h4>
+	 * 
+	 * 	//would call myFunction() after 1 second.
+	 * 	createjs.Tween.get().wait(1000).call(myFunction);
 	 */
 	function call(callback:Dynamic, ?params:Array<Dynamic>, ?scope:Dynamic) : Tween;
 	/**
-	 * Queues an action to set the specified props on the specified target. If target is null, it will use this tween's
-	 * target.
+	 * Adds an action to set the specified props on the specified target. If `target` is null, it will use this tween's
+	 * target. Note that for properties on the target object, you should consider using a zero duration {{#crossLink "Tween/to"}}{{/crossLink}}
+	 * operation instead so the values are registered as tweened props.
+	 * <h4>Example</h4>
+	 * 
+	 * 	myTween.wait(1000).set({visible:false}, foo);
 	 */
 	function set(props:Dynamic, ?target:Dynamic) : Tween;
 	/**
-	 * Queues an action to to play (unpause) the specified tween. This enables you to sequence multiple tweens.
+	 * Adds an action to play (unpause) the specified tween. This enables you to sequence multiple tweens.
+	 * <h4>Example</h4>
+	 * 
+	 * 	myTween.to({x:100}, 500).play(otherTween);
 	 */
-	function play(tween:Tween) : Tween;
+	function play(?tween:Tween) : Tween;
 	/**
-	 * Queues an action to to pause the specified tween.
+	 * Adds an action to pause the specified tween.
+	 * 
+	 * 	myTween.pause(otherTween).to({alpha:1}, 1000).play(otherTween);
+	 * 
+	 * Note that this executes at the end of a tween update, so the tween may advance beyond the time the pause
+	 * action was inserted at. For example:
+	 * 
+	 * myTween.to({foo:0}, 1000).pause().to({foo:1}, 1000);
+	 * 
+	 * At 60fps the tween will advance by ~16ms per tick, if the tween above was at 999ms prior to the current tick, it
+	 * will advance to 1015ms (15ms into the second "step") and then pause.
 	 */
-	function pause(tween:Tween) : Tween;
-	/**
-	 * Advances the tween to a specified position.
-	 */
-	function setPosition(value:Float, ?actionsMode:Float) : Bool;
-	/**
-	 * Advances this tween by the specified amount of time in milliseconds (or ticks if <code>useTicks</code> is true).
-	 * This is normally called automatically by the Tween engine (via <code>Tween.tick</code>), but is exposed for
-	 * advanced uses.
-	 */
-	function tick(delta:Float) : Void;
-	/**
-	 * Pauses or plays this tween.
-	 */
-	function setPaused(value:Bool) : Tween;
+	function pause(?tween:Tween) : Tween;
 	/**
 	 * Returns a string representation of this object.
 	 */

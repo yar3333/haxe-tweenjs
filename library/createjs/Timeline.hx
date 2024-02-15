@@ -25,13 +25,14 @@ extern class Timeline extends EventDispatcher
 	 */
 	var position : Dynamic;
 
-	function new(tweens:Array<Dynamic>, labels:Dynamic, props:Dynamic) : Void;
+	function new(?props:Dynamic) : Void;
 
 	/**
-	 * Adds one or more tweens (or timelines) to this timeline. The tweens will be paused (to remove them from the normal ticking system)
-	 * and managed by this timeline. Adding a tween to multiple timelines will result in unexpected behaviour.
+	 * Adds one or more tweens (or timelines) to this timeline. The tweens will be paused (to remove them from the
+	 * normal ticking system) and managed by this timeline. Adding a tween to multiple timelines will result in
+	 * unexpected behaviour.
 	 */
-	function addTween(tween:Dynamic) : Tween;
+	function addTween(tween:Tween) : Tween;
 	/**
 	 * Removes one or more tweens from this timeline.
 	 */
@@ -74,10 +75,9 @@ extern class Timeline extends EventDispatcher
 	 */
 	function setPaused(value:Bool) : Void;
 	/**
-	 * Recalculates the duration of the timeline.
-	 * The duration is automatically updated when tweens are added or removed, but this method is useful
-	 * if you modify a tween after it was added to the timeline.
-	 */
+     * Recalculates the duration of the timeline. The duration is automatically updated when tweens are added or removed,
+     * but this method is useful if you modify a tween after it was added to the timeline.
+     */
 	function updateDuration() : Void;
 	/**
 	 * Advances this timeline by the specified amount of time in milliseconds (or ticks if useTicks is true).
