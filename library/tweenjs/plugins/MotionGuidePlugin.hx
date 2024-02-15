@@ -1,4 +1,4 @@
-package createjs;
+package tweenjs.plugins;
 
 /**
  * A TweenJS plugin for working with motion guides. Defined paths which objects can follow or orient along.
@@ -30,6 +30,7 @@ package createjs;
  * information on these objects in the background and sharing them can cause unexpected behaviour. Values
  * outside 0-1 range of tweens will be a "best guess" from the appropriate part of the defined curve.
  */
+@:native('createjs.MotionGuidePlugin')
 extern class MotionGuidePlugin
 {
 	/**

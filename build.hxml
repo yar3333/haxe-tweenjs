@@ -2,4 +2,5 @@
 --class-path library
 --class-path test/src
 --macro include('createjs')
+--macro include('tweenjs')
 --main Main

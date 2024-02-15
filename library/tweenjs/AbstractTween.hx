@@ -1,11 +1,13 @@
-package createjs;
+package tweenjs;
 
 import haxe.Constraints.Function;
 import haxe.extern.EitherType;
+import createjs.events.EventDispatcher;
 
 /**
  * Base class that both {{#crossLink "Tween"}}{{/crossLink}} and {{#crossLink "Timeline"}}{{/crossLink}} extend. Should not be instantiated directly.
  */
+@:native('createjs.AbstractTween')
 extern class AbstractTween extends EventDispatcher
 {
 	/**

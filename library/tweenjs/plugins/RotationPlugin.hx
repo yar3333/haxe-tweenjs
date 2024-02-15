@@ -1,4 +1,4 @@
-package createjs;
+package tweenjs.plugins;
 
 /**
  * The RotationPlugin for TweenJS modifies tweens of rotation properties. These properties can be changed when calling
@@ -18,6 +18,7 @@ package createjs;
  * 
  * You can also disable the plugin completely for a tween by setting `tween.pluginData.Rotation_disabled=true`.
  */
+@:native('createjs.RotationPlugin')
 extern class RotationPlugin
 {
 	/**

@@ -1,4 +1,4 @@
-package createjs;
+package tweenjs.plugins;
 
 /**
  * A sample TweenJS plugin. This plugin is purely for demonstration, and contains documentation and helpful tips on
@@ -11,6 +11,7 @@ package createjs;
  * A TweenJS plugin is simply an object that exposes two properties (id, priority), and three methods (init, step, and change).
  * Generally a plugin will also expose an <code>install</code> method as well, though this is not strictly necessary.
  */
+@:native('createjs.SamplePlugin')
 extern class SamplePlugin
 {
 	/**

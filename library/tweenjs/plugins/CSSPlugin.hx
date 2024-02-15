@@ -1,4 +1,4 @@
-package createjs;
+package tweenjs.plugins;
 
 import js.lib.RegExp;
 
@@ -38,6 +38,7 @@ import js.lib.RegExp;
  * 
  * Please note that the CSS Plugin is not included in the TweenJS minified file.
  */
+@:native('createjs.CSSPlugin')
 extern class CSSPlugin
 {
 	/**

@@ -1,3 +1,3 @@
-package createjs;
+package tweenjs;
 
 typedef TweenStep = Dynamic;

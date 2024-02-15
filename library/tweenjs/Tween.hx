@@ -1,4 +1,4 @@
-package createjs;
+package tweenjs;
 
 import haxe.extern.EitherType;
 import haxe.Constraints.Function;
@@ -28,6 +28,7 @@ import haxe.Constraints.Function;
  * 
  * See the {{#crossLink "Tween/get"}}{{/crossLink}} method also.
  */
+@:native('createjs.Tween')
 extern class Tween extends AbstractTween
 {
     /**

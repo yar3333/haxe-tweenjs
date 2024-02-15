@@ -1,4 +1,4 @@
-package createjs;
+package createjs.events;
 
 /**
  * Contains properties and methods shared by all events for use with
@@ -7,6 +7,7 @@ package createjs;
  * Note that Event objects are often reused, so you should never
  * rely on an event object's state outside of the call stack it was received in.
  */
+@:native('createjs.Event')
 extern class Event
 {
 	/**
@@ -31,7 +32,7 @@ extern class Event
 	 * 	<LI> bubbling phase: from the target to the top parent</LI>
 	 * </OL>
 	 */
-	var eventPhase : Int;
+	var eventPhase : Float;
 	/**
 	 * Indicates whether the event will bubble through the display list.
 	 */
