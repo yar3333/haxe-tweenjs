@@ -61,6 +61,7 @@ extern class EventDispatcher
 	 * 		EventDispatcher.initialize(myObject); // add to a specific instance
 	 */
 	static function initialize(target:Dynamic) : Void;
+
 	/**
 	 * Adds the specified event listener. Note that adding multiple listeners to the same function will result in
 	 * multiple callbacks getting fired.
@@ -72,7 +73,8 @@ extern class EventDispatcher
 	 *         // Click happened.
 	 *      }
 	 */
-	function addEventListener(type:String, listener:Dynamic, ?useCapture:Bool) : Dynamic;
+	function addEventListener(type:String, listener:EventListener, ?useCapture:Bool) : EventListener;
+
 	/**
 	 * A shortcut method for using addEventListener that makes it easier to specify an execution scope, have a listener
 	 * only run once, associate arbitrary data with the listener, and remove the listener.
@@ -97,7 +99,8 @@ extern class EventDispatcher
 	 * 			}
 	 * 		}
 	 */
-	function on(type:String, listener:Dynamic, ?scope:Dynamic, ?once:Bool, ?data:Dynamic, ?useCapture:Bool) : Dynamic;
+	function on(type:String, listener:EventListener, ?scope:Dynamic, ?once:Bool, ?data:Dynamic, ?useCapture:Bool) : EventListener;
+
 	/**
 	 * Removes the specified event listener.
 	 * 
@@ -109,7 +112,8 @@ extern class EventDispatcher
 	 * 
 	 *      displayObject.removeEventListener("click", handleClick);
 	 */
-	function removeEventListener(type:String, listener:Dynamic, ?useCapture:Bool) : Void;
+	function removeEventListener(type:String, listener:EventListener, ?useCapture:Bool) : Void;
+
 	/**
 	 * A shortcut to the removeEventListener method, with the same parameters and return value. This is a companion to the
 	 * .on method.
@@ -117,7 +121,8 @@ extern class EventDispatcher
 	 * <b>IMPORTANT:</b> To remove a listener added with `on`, you must pass in the returned wrapper function as the listener. See 
 	 * {{#crossLink "EventDispatcher/on"}}{{/crossLink}} for an example.
 	 */
-	function off(type:String, listener:Dynamic, ?useCapture:Bool) : Void;
+	function off(type:String, listener:EventListener, ?useCapture:Bool) : Void;
+
 	/**
 	 * Removes all listeners for the specified type, or all listeners of all types.
 	 * 
@@ -130,6 +135,7 @@ extern class EventDispatcher
 	 *      displayObject.removeAllEventListeners("click");
 	 */
 	function removeAllEventListeners(?type:String) : Void;
+
 	/**
 	 * Dispatches the specified event to all listeners.
 	 * 
@@ -142,11 +148,13 @@ extern class EventDispatcher
 	 *      var event = new createjs.Event("progress");
 	 *      this.dispatchEvent(event);
 	 */
-	function dispatchEvent(eventObj:Dynamic, ?bubbles:Bool, ?cancelable:Bool) : Bool;
+	function dispatchEvent(eventObj:Event, ?bubbles:Bool, ?cancelable:Bool) : Bool;
+
 	/**
 	 * Indicates whether there is at least one listener for the specified event type.
 	 */
 	function hasEventListener(type:String) : Bool;
+
 	/**
 	 * Indicates whether there is at least one listener for the specified event type on this object or any of its
 	 * ancestors (parent, parent's parent, etc). A return value of true indicates that if a bubbling event of the
@@ -156,5 +164,6 @@ extern class EventDispatcher
 	 * event flow for a listener, not just this object.
 	 */
 	function willTrigger(type:String) : Bool;
-	function toString() : String;
+	
+    function toString() : String;
 }

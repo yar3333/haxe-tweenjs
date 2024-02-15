@@ -31,7 +31,7 @@ extern class Event
 	 * 	<LI> bubbling phase: from the target to the top parent</LI>
 	 * </OL>
 	 */
-	var eventPhase : Float;
+	var eventPhase : Int;
 	/**
 	 * Indicates whether the event will bubble through the display list.
 	 */

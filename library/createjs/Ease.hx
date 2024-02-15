@@ -20,26 +20,29 @@ package createjs;
 extern class Ease
 {
 	static function linear(t:Float) : Float;
+
 	/**
 	 * Identical to linear.
 	 */
 	static function none(t:Float) : Float;
+
 	/**
 	 * Mimics the simple -100 to 100 easing in Adobe Flash/Animate.
 	 */
-	static function get(amount:Float) : Dynamic;
+	static function get(amount:Float) : (t:Float) -> Float;
 	/**
 	 * Configurable exponential ease.
 	 */
-	static function getPowIn(pow:Float) : Dynamic;
+	static function getPowIn(pow:Float) : (t:Float) -> Float;
 	/**
 	 * Configurable exponential ease.
 	 */
-	static function getPowOut(pow:Float) : Dynamic;
+	static function getPowOut(pow:Float) : (t:Float) -> Float;
 	/**
 	 * Configurable exponential ease.
 	 */
-	static function getPowInOut(pow:Float) : Dynamic;
+	static function getPowInOut(pow:Float) : (t:Float) -> Float;
+
 	static function quadIn(t:Float) : Float;
 	static function quadOut(t:Float) : Float;
 	static function quadInOut(t:Float) : Float;
@@ -55,40 +58,47 @@ extern class Ease
 	static function sineIn(t:Float) : Float;
 	static function sineOut(t:Float) : Float;
 	static function sineInOut(t:Float) : Float;
-	/**
+	
+    /**
 	 * Configurable "back in" ease.
 	 */
-	static function getBackIn(amount:Float) : Dynamic;
-	static function backIn(t:Float) : Float;
-	/**
+	static function getBackIn(amount:Float) : (t:Float) -> Float;
+    static function backIn(t:Float) : Float;
+	
+    /**
 	 * Configurable "back out" ease.
 	 */
-	static function getBackOut(amount:Float) : Dynamic;
+	static function getBackOut(amount:Float) : (t:Float) -> Float;
 	static function backOut(t:Float) : Float;
+
 	/**
 	 * Configurable "back in out" ease.
 	 */
-	static function getBackInOut(amount:Float) : Dynamic;
+	static function getBackInOut(amount:Float) : (t:Float) -> Float;
 	static function backInOut(t:Float) : Float;
+
 	static function circIn(t:Float) : Float;
 	static function circOut(t:Float) : Float;
 	static function circInOut(t:Float) : Float;
 	static function bounceIn(t:Float) : Float;
 	static function bounceOut(t:Float) : Float;
 	static function bounceInOut(t:Float) : Float;
+
 	/**
 	 * Configurable elastic ease.
 	 */
-	static function getElasticIn(amplitude:Float, period:Float) : Dynamic;
+	static function getElasticIn(amplitude:Float, period:Float) : (t:Float) -> Float;
 	static function elasticIn(t:Float) : Float;
+
 	/**
 	 * Configurable elastic ease.
 	 */
-	static function getElasticOut(amplitude:Float, period:Float) : Dynamic;
+	static function getElasticOut(amplitude:Float, period:Float) : (t:Float) -> Float;
 	static function elasticOut(t:Float) : Float;
+
 	/**
 	 * Configurable elastic ease.
 	 */
-	static function getElasticInOut(amplitude:Float, period:Float) : Dynamic;
+	static function getElasticInOut(amplitude:Float, period:Float) : (t:Float) -> Float;
 	static function elasticInOut(t:Float) : Float;
 }
